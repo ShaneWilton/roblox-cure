@@ -290,14 +290,3 @@ end
 
 local rbxmObj = recurseDir("source",{ClassName='Configuration', Name={'string',"cure"}})
 saveRBXM(rbxmObj,"build/" .. ((...) or "cure.rbxm"))
-
-local f = io.open("locations.txt")
-if f then
-	local outputs = f:read('*a')
-	f:close()
-
-	for path in outputs:gmatch('[^\r\n]+') do
-		saveRBXM(rbxmObj,path)
-		print("wrote to",path)
-	end
-end
