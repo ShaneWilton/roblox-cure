@@ -285,12 +285,6 @@ local function handleFile(path,file,sub)
 				return value
 			end
 		end
-	elseif ext == "asset" then
-		content = tonumber(content)
-		if not content then
-			print("WARNING: content of `" .. file .. "` must be a number")
-		end
-		return createValue('Int',name,content)
 	else
 		return {ClassName='Script';
 			Name={'string',name};
