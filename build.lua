@@ -269,21 +269,10 @@ local function handleFile(path,file,sub)
 				Name={'string',subname};
 				Source={'ProtectedString',content};
 			}
+		elseif subext == "" then
+			print(string.format("WARNING: %s has no subextension", path))
 		else
-			local chunk = MAX_STRING_LENGTH
-			local length = #content
-			if length <= chunk then
-				return createValue('String',name,content)
-			else
-				local value = createValue('Bool',name,true)
-				for i = 1,math.ceil(length/chunk) do
-					local a = (i - 1)*chunk + 1
-					local b = a + chunk - 1
-					b = b > length and length or b
-					value[i] = createValue('String',tostring(i),content:sub(a,b))
-				end
-				return value
-			end
+			print(string.format("WARNING: %s has an unrecognized subextension", path))
 		end
 	else
 		return {ClassName='Script';
