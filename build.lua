@@ -4,9 +4,6 @@ if _VERSION == 'Lua 5.2' then
 	unpack = table.unpack
 end
 
--- maximum length of strings in replicated instances
-MAX_STRING_LENGTH = 200000 - 1
-
 local saveRBXM do
 	-- because of the way XML is parsed, leading spaces get truncated
 	-- so, simply add a "\" when a space or "\" is detected as the first character
@@ -228,10 +225,6 @@ local function splitName(path)
 		end
 	end
 	return path,""
-end
-
-local function createValue(type,name,value)
-	return {ClassName=type .. 'Value', Name={'string',name}, Value={type:lower(),value}}
 end
 
 local function checkSyntax(source)
