@@ -275,11 +275,7 @@ local function handleFile(path,file,sub)
 			print(string.format("WARNING: %s has an unrecognized subextension", path))
 		end
 	else
-		return {ClassName='Script';
-			Name={'string',name};
-			Disabled={'bool',true};
-			Source={'ProtectedString',"--[==[\n" .. content .. "\n--]==]"};
-		}
+		print(string.format("WARNING: %s has an unrecognized extension", path))
 	end
 end
 
