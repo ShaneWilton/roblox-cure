@@ -278,6 +278,11 @@ local function handleFile(path,file,sub)
 				Name={'string',subname};
 				Source={'ProtectedString',content};
 			}
+		elseif subext:lower() == "modulescript" then
+			return {ClassName='ModuleScript';
+				Name={'string',subname};
+				Source={'ProtectedString',content};
+			}
 		else
 			local chunk = MAX_STRING_LENGTH
 			local length = #content
