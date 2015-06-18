@@ -44,91 +44,6 @@ local saveRBXM do
 		['ProtectedString'] = function(data)
 			return encodeTruncEsc(escapeToXML(data))
 		end;
-		['CoordinateFrame'] = function(data,tab)
-			local d = {data:components()}
-			return {
-				"\n",tab( 1),[[<X>]],d[1],[[</X>]];
-				"\n",tab(  ),[[<Y>]],d[2],[[</Y>]];
-				"\n",tab(  ),[[<Z>]],d[3],[[</Z>]];
-				"\n",tab(  ),[[<R00>]],d[4],[[</R00>]];
-				"\n",tab(  ),[[<R01>]],d[5],[[</R01>]];
-				"\n",tab(  ),[[<R02>]],d[6],[[</R02>]];
-				"\n",tab(  ),[[<R10>]],d[7],[[</R10>]];
-				"\n",tab(  ),[[<R11>]],d[8],[[</R11>]];
-				"\n",tab(  ),[[<R12>]],d[9],[[</R12>]];
-				"\n",tab(  ),[[<R20>]],d[10],[[</R20>]];
-				"\n",tab(  ),[[<R21>]],d[11],[[</R21>]];
-				"\n",tab(  ),[[<R22>]],d[12],[[</R22>]];
-				"\n",tab(-1);
-			}
-		end;
-		['Color3'] = function(data)
-			return tonumber(string.format("0xFF%02X%02X%02X",data.r*255,data.g*255,data.b*255))
-		end;
-		['Content'] = function(data)
-			if #data == 0 then
-				return [[<null></null>]]
-			else
-				return {[[<url>]],data,[[</url>]]}
-			end
-		end;
-		['Ray'] = function(data,tab)
-			local o = data.Origin
-			local d = data.Direction
-			return {
-				"\n",tab( 1),[[<origin>]];
-				"\n",tab( 1),[[<X>]],o.x,[[</X>]];
-				"\n",tab(  ),[[<Y>]],o.y,[[</Y>]];
-				"\n",tab(  ),[[<Z>]],o.z,[[</Z>]];
-				"\n",tab(-1),[[</origin>]];
-				"\n",tab(  ),[[<direction>]];
-				"\n",tab( 1),[[<X>]],d.x,[[</x>]];
-				"\n",tab(  ),[[<Y>]],d.y,[[</Y>]];
-				"\n",tab(  ),[[<Z>]],d.z,[[</Z>]];
-				"\n",tab(-1),[[</direction>]];
-				"\n";tab(-1);
-			}
-		end;
-		['Vector3'] = function(data,tab)
-			return {
-				"\n",tab( 1),[[<X>]],data.x,[[</X>]];
-				"\n",tab(  ),[[<Y>]],data.y,[[</Y>]];
-				"\n",tab( 0),[[<Z>]],data.z,[[</Z>]];
-				"\n";tab(-1);
-			}
-		end;
-		['Vector2'] = function(data,tab)
-			return {
-				"\n",tab( 1),[[<X>]],data.x,[[</X>]];
-				"\n",tab( 0),[[<Y>]],data.y,[[</Y>]];
-				"\n";tab(-1);
-			}
-		end;
-		['UDim2'] = function(data,tab)
-			return {
-				"\n",tab( 1),[[<XS>]],data.X.Scale,[[</XS>]];
-				"\n",tab(  ),[[<XO>]],data.X.Offset,[[</XO>]];
-				"\n",tab(  ),[[<YS>]],data.Y.Scale,[[</YS>]];
-				"\n",tab( 0),[[<YO>]],data.Y.Offset,[[</YO>]];
-				"\n";tab(-1);
-			}
-		end;
-		['Ref'] = function(data)
-			if data == nil then
-				return "null"
-			else
-				return data
-			end
-		end;
-		['double'] = function(data)
-			return string.format("%f",data)
-		end;
-		['int'] = function(data)
-			return string.format("%i",data)
-		end;
-		['bool'] = function(data)
-			return not not data
-		end;
 	}
 
 	-- Converts a RBXM table to a string.
@@ -248,19 +163,22 @@ local function handleFile(path,file,sub)
 		checkSyntax(content)
 		local subname,subext = splitName(name)
 		if subext:lower() == "script" then
-			return {ClassName='Script';
-				Name={'string',subname};
-				Source={'ProtectedString',content};
+			return {
+					ClassName='Script';
+					Name={'string',subname};
+					Source={'ProtectedString',content};
 			}
 		elseif subext:lower() == "localscript" then
-			return {ClassName='LocalScript';
-				Name={'string',subname};
-				Source={'ProtectedString',content};
+			return {
+					ClassName='LocalScript';
+					Name={'string',subname};
+					Source={'ProtectedString',content};
 			}
 		elseif subext:lower() == "modulescript" then
-			return {ClassName='ModuleScript';
-				Name={'string',subname};
-				Source={'ProtectedString',content};
+			return {
+					ClassName='ModuleScript';
+					Name={'string',subname};
+					Source={'ProtectedString',contentg};
 			}
 		elseif subext == "" then
 			print(string.format("WARNING: %s has no subextension", path))
