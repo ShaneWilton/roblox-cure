@@ -7,7 +7,7 @@ end
 local saveRBXM do
   -- because of the way XML is parsed, leading spaces get truncated
   -- so, simply add a "\" when a space or "\" is detected as the first character
-  -- this will be decoded automatically by Cure
+  -- this will be decoded automatically by Fazer
   local function encodeTruncEsc(str)
     local first = str:sub(1,1)
     if first:match('%s') or first == [[\]] then
@@ -206,5 +206,5 @@ local function recurseDir(path,obj,r)
   return obj
 end
 
-local rbxmObj = recurseDir("source",{ClassName='Configuration', Name={'string',"cure"}})
-saveRBXM(rbxmObj,"build/" .. ((...) or "cure.rbxm"))
+local rbxmObj = recurseDir("source",{ClassName='Configuration', Name={'string',"fazer"}})
+saveRBXM(rbxmObj,"build/" .. ((...) or "fazer.rbxm"))
