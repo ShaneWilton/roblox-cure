@@ -249,20 +249,6 @@ local function handleFile(path,file,sub)
 		f:close()
 	end
 
-	if not sub and file:lower() == "cure.server.lua" then
-		checkSyntax(content)
-		return {ClassName='Script';
-			Name={'string',"cure.server"};
-			Source={'ProtectedString',content};
-		}
-	elseif not sub and file:lower() == "cure.client.lua" then
-		checkSyntax(content)
-		return {ClassName='LocalScript';
-			Name={'string',"cure.client"};
-			Source={'ProtectedString',content};
-		}
-	end
-
 	local name,ext = splitName(file)
 	ext = ext:lower()
 	if ext == "lua" then
