@@ -1,6 +1,6 @@
 # Fazer
 
-**Fazer** is a solution to Roblox's lack of library system. It constructs a .rbxm file from a source tree, to be inserted into the ServerScriptService.
+**Fazer** constructs a .rbxm file from a source tree, to be inserted into the ServerScriptService.
 
 ### Structure
 
